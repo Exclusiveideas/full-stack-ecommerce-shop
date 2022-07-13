@@ -18,9 +18,22 @@ mongoose.connect(process.env.MONGODB_URL)
         console.log("error connecting db >>", err)
     })
 
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+    origin: '*'
+})); 
+app.use(function(req, res, next) {
+ 
+    res.setHeader('Access-Control-Allow-Origin', 'https://e-commerce-a8b84.web.app');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next()
+  });
 
+app.use(express.json());
+app.get("/", (req, res) => {
+    res.send("Application running")
+})
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
@@ -28,8 +41,8 @@ app.use("/api/carts", cartRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/checkout", stripeRoutes);
 
-const PORT = 5001;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`app server is running on Port ${PORT}`) 
+    console.log(`App server is running on Port ${PORT}`) 
 });

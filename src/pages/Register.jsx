@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useReducer } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { register } from '../redux/apiCalls';
 import { mobile } from '../responsive';
-
-
+import { SLink } from './Login'
+ 
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -54,25 +56,82 @@ const Button = styled.button`
   background-color: teal;
   color: white;
   cursor: pointer;
+  &:disabled {
+    color: green;
+    cursor: not-allowed;
+  }
 `;
 
+const P = styled.p`  
+  color: red;
+`
+
+const initialState = {
+  username: "",
+  password: "",
+  confirmPassword: "",
+  error: "",
+  registerResponse: "",
+}
+
+const signupReducer = (state, action) =>  {
+  switch(action.type) {
+     case "UPDATE_USERNAME":
+       return {...state, username: action.payload}
+     case "UPDATE_PASSWORD":
+      return {...state, password: action.payload}
+     case "UPDATE_CPASSWORD":
+      return {...state, confirmPassword: action.payload}
+      case "UPDATE_ERROR":
+        return {...state, error: action.payload}
+      case "CLEAR_ERROR":
+          return {...state, error: ""}
+    default: 
+      return state;
+  }
+}
+
 const Register = () => {
+  const [state, dispatch ] = useReducer(signupReducer, initialState);
+  const reduxDispatch = useDispatch();
+
+  const registerUser = (e) => {
+    e.preventDefault();
+
+    if(state.password !== state.confirmPassword) {
+      dispatch({ type: "UPDATE_ERROR", payload: "Passwords doesn't match"});
+      return;
+    }
+
+    const user = {
+      username: state.username,
+      password: state.password,
+    }
+
+    register(reduxDispatch, user);
+  }
+
+  const Focused = () => {
+    dispatch({
+      type: "CLEAR_ERROR"
+    })
+  }
+
   return (
     <Container>
         <Wrapper>
             <Title>CREATE AN ACCOUNT</Title>
             <Form>
-                <Input placeholder="name" />
-                <Input placeholder="last name" />
-                <Input placeholder="email" />
-                <Input placeholder="username" />
-                <Input placeholder="password" />
-                <Input placeholder="confirm password" />
+                <Input placeholder="username" required onFocus={Focused} value={state.username} onChange={(e) => dispatch({type: "UPDATE_USERNAME", payload: e.target.value})}  />
+                <Input placeholder="password"  type={"password"} required  onFocus={Focused}  onChange={(e) => dispatch({type: "UPDATE_PASSWORD", payload: e.target.value})}  />
+                <Input placeholder="confirm password" type={"password"} required  onFocus={Focused} onChange={(e) => dispatch({type: "UPDATE_CPASSWORD", payload: e.target.value})}  />
                 <Agreement>
-                    By creating an account, you consent to the processing of none of your 
-                    personal data in accordance with the <b>PRIVACY POLICY</b>
+                    If the username already exist, no account will be created. By creating an account, you consent to the processing of none of your 
+                    personal data in accordance with the <b>PRIVACY POLICY</b> 
                 </Agreement>
-                <Button>CREATE</Button>
+                <Button  onClick={(e) => registerUser(e)}>CREATE</Button> <br />
+                {state.error && <P>{state.error}</P>}
+                <SLink to="/login">Already have an account? Sign in</SLink>
             </Form>
         </Wrapper>
     </Container>

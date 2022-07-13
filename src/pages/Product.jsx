@@ -5,28 +5,33 @@ import Announcement from '../components/Announcement';
 import NewsLetter from '../components/NewsLetter';
 import Footer from '../components/Footer';
 import { Add, Remove } from '@mui/icons-material';
-import { mobile } from '../responsive';
+import { mobile, medium } from '../responsive';
 import { useLocation } from 'react-router-dom';
 import { publicReq } from '../axios';
 import { addProduct } from '../redux/cartRedux';
 import { useDispatch } from 'react-redux';
 
 const Container = styled.div`
+  width: 100vw;
+  overflow: hidden;
 `;
 
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
+
   ${mobile({ flexDirection: "column", padding: "10px" })}
 `;
 const ImgContainer = styled.div`
-  flex: 1;
+  flex: 1;  
+  ${medium({ height: "max-content", padding: "5px"})}
 `;
 
 const Image = styled.img`
   width: 100%;
   height: 90vh;
   object-fit: cover;
+  ${medium({ objectFit: "contain", height: "100%"})}
   ${mobile({ height: "40vh" })}
 `;
 
@@ -38,6 +43,7 @@ const InfoCont = styled.div`
 
 const Title = styled.h1`
   font-weight: 200;
+  ${medium({ fontSize: "19px", fontWeight: "500"})}
 `;
 
 const Desc = styled.p`
@@ -46,6 +52,7 @@ const Desc = styled.p`
 const Price = styled.span`
   font-weight: 100;
   font-size: 40px;
+  ${medium({ fontSize: "22px", fontWeight: "400"})}
 `;
 
 const FilterCont = styled.div`
@@ -64,6 +71,7 @@ const Filter = styled.div`
 const FilterTitle = styled.span`
   font-size: 20px;
   font-weight: 200;
+  ${medium({ fontSize: "18px"})}
 `;
 
 const FilterColor = styled.div`
@@ -74,6 +82,7 @@ const FilterColor = styled.div`
   margin: 0 5px;
   cursor: pointer;
   border: 1px solid black;
+  ${medium({ marginRight: "10px"})}
 `;
 
 const FilterSize = styled.select`
@@ -90,6 +99,7 @@ const AddCont = styled.div`
   align-items: center;
   justify-content: space-between;
   ${mobile({ width: "100%" })}
+  ${medium({ width: "100%" })}
 `;
 
 const AmountCont = styled.div`
@@ -117,8 +127,11 @@ const Button = styled.button`
   font-weight: 500;
  
   &:hover {
-      background-color: #f8f4f4;
+      background-color: teal;
+      color: white;
   }
+
+  ${medium({padding: "8px", width: "100%", margin: "10px" })}
 `;
 
 const Product = () => {
@@ -165,8 +178,8 @@ const Product = () => {
 
     return (
         <Container>
-            <Navbar />
             <Announcement />
+            <Navbar />
             <Wrapper>
                 <ImgContainer>
                     <Image src={product.img} />

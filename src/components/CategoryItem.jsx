@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { mobile } from '../responsive';
+import { mobile, medium } from '../responsive';
 
 
 const Container = styled.div`
@@ -9,13 +9,15 @@ const Container = styled.div`
   margin: 3px;
   height: 70vh;
   position: relative;
+
+  ${mobile({ height: "33vh" })}
 `
 const Image = styled.img`
   width: 100%;
   object-fit: cover;
   height: 100%;
   
-  ${mobile({ height: "20vh" })}
+  ${mobile({ height: "33vh" })}
 `;
 const Info = styled.div`
   position: absolute;
@@ -31,6 +33,9 @@ const Info = styled.div`
 const Title = styled.h1`
   color: white;
   margin-bottom: 20px;
+  text-align: center;
+  
+  ${medium({  fontSize: "18px"})}
 `;
 const Button = styled.button`
   border: none;
@@ -39,6 +44,8 @@ const Button = styled.button`
   color: gray;
   cursor: pointer;
   font-weight: 600;
+  
+  ${medium({ padding: "7px", fontSize: "14px"})}
 `;
 
 

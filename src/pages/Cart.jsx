@@ -4,16 +4,19 @@ import Navbar from '../components/Navbar';
 import Announcement from '../components/Announcement';
 import Footer from '../components/Footer';
 import { Add, Remove } from '@mui/icons-material';
-import { mobile } from '../responsive';
-import { useSelector } from 'react-redux';
+import { mobile, medium } from '../responsive';
+import { useDispatch, useSelector } from 'react-redux';
 import StripeCheckout from 'react-stripe-checkout';
 import { userReq } from '../axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { clearProducts } from '../redux/cartRedux';
 
 const KEY = process.env.REACT_APP_STRIPE_KEY;
 
 
 const Container = styled.div`
+  width: 100vw;
+  overflow: hidden;
 `;
 
 const Wrapper = styled.div`
@@ -40,7 +43,9 @@ const TopButton = styled.button`
   border: ${props => props.type === "filled" && 'none'};
   background-color: ${props => props.type === "filled" ? 'black' : 'transparent'};
   color: ${props => props.type === "filled" && "white"};
-`;
+  
+  ${medium({ padding: "5px" })}
+  `;
 
 const TopTexts = styled.div`
 ${mobile({ display: "none" })}
@@ -56,6 +61,7 @@ const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
   ${mobile({ flexDirection: "column" })}
+  ${medium({ flexDirection: "column" })}
 `;
 
 const Info = styled.div`
@@ -136,10 +142,13 @@ const Summary = styled.div`
   border-radius: 10px;
   padding: 20px;
   height: 50vh;
+  ${medium({ marginTop: "30px" })}
 `;
 
 const SummaryTitle = styled.h1`
-  font-weight: 200;
+  font-weight: 400;
+  text-align: center;
+  
 `;
 
 const SummaryItem = styled.span`
@@ -150,9 +159,11 @@ const SummaryItem = styled.span`
   font-size: ${props => props.type === "total" && "24px"};
 `;
 
-const SummaryItemText = styled.span``;
+const SummaryItemText = styled.span`
+`;
 
-const SummaryItemPrice = styled.span``;
+const SummaryItemPrice = styled.span`
+`;
 
 const SummaryButton = styled.button`
   width: 100%;
@@ -161,13 +172,19 @@ const SummaryButton = styled.button`
   color: white;
   font-weight: 600;
   cursor: pointer;
+  ${medium({ padding: "6px", fontWeight: "400" })}
 `;
+
+const SLink = styled(Link)`
+  text-decoration: none;
+`
 
 
 const Cart = () => {
   const cart = useSelector(state => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onToken = (token) => {
     setStripeToken(token);
@@ -178,9 +195,10 @@ const Cart = () => {
       try {
         const response = userReq.post("/checkout/payment", {
           tokenId: stripeToken.id,
-          amount: cart.total*100,
+          amount: cart.total * 100,
         })
-        navigate("/success", { data: response.data});
+        dispatch(clearProducts())
+        navigate("/success", { data: response.data, replace: true });
       } catch (err) {
         console.log(err);
       }
@@ -191,17 +209,30 @@ const Cart = () => {
 
   return (
     <Container>
-      <Navbar />
       <Announcement />
+      <Navbar />
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <SLink to="/">
+            <TopButton>CONTINUE SHOPPING</TopButton>
+          </SLink>
           <TopTexts>
             <TopText>Shopping Bag(2)</TopText>
             <TopText>Your Wishlist(0)</TopText>
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+          <StripeCheckout
+            name="Exclusive Idea's Shop"
+            image="https://avatars.githubusercontent.com/u/76836006?v=4"
+            billingAddress
+            shippingAddress
+            description={`Your total is $${cart.total}`}
+            amount={cart.total * 100}
+            token={onToken}
+            stripeKey={KEY}
+          >
+            <TopButton type="filled">CHECKOUT NOW</TopButton>
+          </StripeCheckout>
         </Top>
         <Bottom>
           <Info>

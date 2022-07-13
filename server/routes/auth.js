@@ -5,13 +5,21 @@ const jwt = require("jsonwebtoken");
 
 //Register
 router.post("/register", async (req, res) => {
-    const { username, email, password } = req.body;
+    const { username, password } = req.body;
 
-    if(!username || !email || !password ) res.status(400).json("Invalid/Incomplete input");
+    if(!username || !password ) {
+        res.status(400).json("Invalid/Incomplete input");
+        return
+    } 
+    
+    const existingUser = await User.findOne({ username});
+    if(existingUser) {
+        res.status(401).json({message: "User already exists"});
+        return;
+    } 
 
     const newUser = new User({
         username: username,
-        email: email,
         password: CryptoJS.AES.encrypt(password, process.env.PASSWORD_SECRET_KEY).toString(),
     })
 
@@ -20,7 +28,6 @@ router.post("/register", async (req, res) => {
         res.status(200).json(savedUser);
     } catch(err) {
         res.status(500).json(err);
-        console.log("error saving user >>", err)
     }
 
 });
@@ -29,12 +36,18 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
     try {
         const user = await User.findOne({ username: req.body.username});
-        if(!user) res.status(401).json("Wrong Credentials"); 
+        if(!user) {
+            res.status(401).json("Wrong Credentials"); 
+            return;
+        } 
 
         const hashedPassword = CryptoJS.AES.decrypt(user.password, process.env.PASSWORD_SECRET_KEY);
         const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
-        if(originalPassword != req.body.password) return res.status(401).json("Wrong Credentials");
+        if(originalPassword != req.body.password) {
+            res.status(401).json("Wrong Credentials");
+            return
+        }
 
         const accessToken = jwt.sign({
             id: user._id,

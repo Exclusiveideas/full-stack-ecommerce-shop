@@ -5,10 +5,12 @@ import Announcement from '../components/Announcement';
 import NewsLetter from '../components/NewsLetter';
 import Products from '../components/Products';
 import Footer from '../components/Footer';
-import { mobile } from '../responsive';
+import { mobile, medium } from '../responsive';
 import { useLocation } from 'react-router-dom';
 
 const Container = styled.div`
+  width: 100vw;
+  overflow: hidden;
 `;
 
 const Title = styled.div`
@@ -29,12 +31,13 @@ const FilterText = styled.span`
   font-size: 20px;
   font-weight: 600;
   margin-right: 20px;
-  ${mobile({ margin: "0px" })}
+  ${medium({ margin: "0px", fontSize: "16px" })}
 `;
 
 const Select = styled.select`
   padding: 10px;
   margin-right: 20px;
+  ${medium({ padding: "5px" })}
   ${mobile({ margin: "10px 0px" })}
 `;
   
@@ -45,6 +48,7 @@ const ProductList = () => {
   const [sort, setSort] = useState("newest");
   const location = useLocation();
   const cat = location.pathname.split("/")[2];
+  console.log("cat => ",cat)
 
   const handleFilter = (e) => {
     const value = e.target.value;
@@ -56,8 +60,8 @@ const ProductList = () => {
 
   return (
     <Container>
-        <Navbar />
         <Announcement />
+        <Navbar />
         <Title>{cat}</Title>
         <FilterCont>
             <Filter>

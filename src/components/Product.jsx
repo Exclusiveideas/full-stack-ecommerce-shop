@@ -1,5 +1,5 @@
-import { FavoriteBorderOutlined, SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material';
-import React from 'react';
+import { Favorite, FavoriteBorderOutlined, FavoriteBorderRounded, SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -67,23 +67,27 @@ const Icon = styled.div`
 `;
 
 const Product = ({ item }) => {
+  const [loved, setLoved] = useState(false);
+
   return (
     <Container>
-        <Circle />
-        <Image src={item.img} />
-        <Info>
-            <Icon>
-                <ShoppingCartOutlined />
-            </Icon>
-            <Icon>
-              <Link to={`/product/${item._id}`}>
-                <SearchOutlined />
-              </Link>
-            </Icon>
-            <Icon>
-                <FavoriteBorderOutlined />
-            </Icon>
-        </Info>
+      <Circle />
+      <Image src={item.img} />
+      <Info>
+        <Icon>
+          <Link to={`/product/${item._id}`}>
+            <ShoppingCartOutlined />
+          </Link>
+        </Icon>
+        <Icon>
+          <Link to={`/product/${item._id}`}>
+            <SearchOutlined />
+          </Link>
+        </Icon>
+        <Icon onClick={() => setLoved(!loved)} >
+          {loved ? <Favorite style={{color:"red"}} /> : <FavoriteBorderOutlined />}
+        </Icon>
+      </Info>
     </Container>
   )
 }

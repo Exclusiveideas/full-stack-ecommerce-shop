@@ -8,14 +8,14 @@ export const sliderItems = [
     },
     {
       id: 2,
-      img: "https://images.unsplash.com/photo-1589465885857-44edb59bbff2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8d2hpdGUlMjBjbG90aGVzfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
+      img: "https://assetsprx.matchesfashion.com/img/product/500/1266090_2.jpg",
       title: "AUTUMN COLLECTION",
       desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
       bg: "fcf1ed",
     },
     {
       id: 3,
-      img: "https://images.unsplash.com/photo-1589465885857-44edb59bbff2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8d2hpdGUlMjBjbG90aGVzfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
+      img: "https://www.awedbymonica.com/wp-content/uploads/2020/08/atlanta-blogger-wearing-the-best-loungewear-dresses-for-summer-4-1440x2160.jpg",
       title: "LOUNGEWEAR LOVE",
       desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
       bg: "fbf0f4",

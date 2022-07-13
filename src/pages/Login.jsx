@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { login } from '../redux/apiCalls';
 import { mobile } from '../responsive';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom'
+import { clearError } from '../redux/userRedux';
 
 
 const Container = styled.div`
@@ -58,9 +60,9 @@ const Button = styled.button`
     cursor: not-allowed;
   }
 `;
-
-const Link = styled.a`
-  margin: 5px 0px;
+ 
+export const SLink = styled(Link)`
+  margin: 8px 0px;
   font-size: 15px;
   text-decoration: underline;
   cursor: pointer;
@@ -68,7 +70,7 @@ const Link = styled.a`
 
 const Error = styled.span`
   color: red;
-`
+`;
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -83,17 +85,20 @@ const Login = () => {
     login(dispatch, {username, password});
   }
 
+  const isTyping = () => {
+    dispatch(clearError())
+  }
+
   return (
     <Container>
         <Wrapper>
             <Title>SIGN IN </Title>
             <Form>
-                <Input placeholder="username" onChange={(e) => setUsername(e.target.value)} />
-                <Input placeholder="password"onChange={(e) => setPassword(e.target.value)} type="password" />
+                <Input placeholder="username" onFocus={() => isTyping()} onChange={(e) => setUsername(e.target.value)} />
+                <Input placeholder="password" onFocus={() => isTyping()} onChange={(e) => setPassword(e.target.value)} type="password" />
                 <Button disabled={isFetching} onClick={handleLogin} >LOG IN</Button>
                 { error && <Error>Something went wrong...</Error>}
-                <Link>Don't remember your password?, click here </Link>
-                <Link>Create an account</Link>
+                <SLink to="/register">New to this shop?, Create an account</SLink>
             </Form>
         </Wrapper>
     </Container>

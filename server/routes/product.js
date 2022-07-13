@@ -1,4 +1,3 @@
-const { LibraryMusicTwoTone } = require("@mui/icons-material");
 const Product = require("../models/Product.js");
 const { verifyAndAuthorizeToken, verifyTokenAndAdmin } = require("./verifyToken.js");
 const router = require("express").Router();
