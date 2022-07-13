@@ -1,13 +1,20 @@
 # E-commerce Shop
-![2](https://user-images.githubusercontent.com/76836006/165222544-d4daac36-7c91-4c0c-bbb5-0c221f639a7d.png)
+![e-commerce](https://user-images.githubusercontent.com/76836006/178804431-eb9ebfe9-91fc-4ac7-851e-3b6b91ee16dd.JPG)
+![e-commerce 03](https://user-images.githubusercontent.com/76836006/178804478-b6cc1993-2bab-40d3-8bd7-cda492f3626c.JPG)
+![e-commerce 04](https://user-images.githubusercontent.com/76836006/178804512-854fea24-35e2-40a6-9118-4f8c9b5ea571.JPG)
+
 
 ## Introduction
-Using the MERN stack, MongoDB, ExpressJs, React and NodeJs, I built a full stack e-commerce web application, Admin dashboard and integrated stripe for payment functionality.
+This e-commerce clothing store was built using the MERN stack which comprises of React, Node, Express, MongoDB. Payment gateway was integrated using stripe and firebase for hosting the frontend and heroku for hosting the backend.
 
-## Stage
+## Development Stage
 The shop is completely built.
 
-Presently I'm developing the admin dashboard.
+## Live Preview
+link to the deployed shop: https://e-commerce-a8b84.web.app
+
+## Admin Dashboard
+The github repository for the admin dashboard is at: https://github.com/Exclusiveideas/admin-dashboard
 
 ## Setup 
-run ```npm i && npm start``` to start the application.
+First clone this repository into your local system and run ```npm i && npm start``` to start the application.
