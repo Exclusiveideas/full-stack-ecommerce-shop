@@ -21,7 +21,7 @@
 The shop is completely built.
 
 ## Live Preview
-link to the deployed shop: https://e-commerce-a8b84.web.app
+[Link](https://e-commerce-a8b84.web.app) to the deployed shop
 
 ## Installation Steps 
 **1. First clone the project by running** <br />
