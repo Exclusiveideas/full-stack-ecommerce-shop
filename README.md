@@ -36,6 +36,13 @@ link to the deployed shop: https://e-commerce-a8b84.web.app
     ``` npm i ``` 
     <br />
     
-**4. Start the application development server **<br />
+**4. Start the application development server**<br />
     ``` npm start ```
+
+<br /> 
+
+
+**The app is now running**
 <br />
+
+#### Don't forget to star this repository✨✨.
