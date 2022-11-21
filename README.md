@@ -22,10 +22,10 @@ The shop is completely built.
 
 ## Installation Steps 
 **1. First clone the project by running** <br />
-   ``` git clone https://github.com/<your-username>/full-stack-ecommerce-shop.git ```
+   ``` git clone https://github.com/Exclusiveideas/full-stack-ecommerce-shop.git ```
 <br />
 
-**2. Go into thr project directory**  <br />
+**2. Go into the project directory**  <br />
    ``` cd full-stack-ecommerce-shop ``` 
    <br />
    
@@ -42,4 +42,4 @@ The shop is completely built.
 **The app is now running**
 <br />
 
-#### Don't forget to star this repository✨✨.
+#### Don't forget to leave a star ✨✨.
