@@ -13,11 +13,6 @@
 [![Stripe badge](https://img.shields.io/badge/Stripe-626CD9?style=for-the-badge&logo=Stripe&logoColor=white)](https://github.com/Exclusiveideas)
 [![Redux badge](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)](https://github.com/Exclusiveideas) <br />
 
-**Front-end:** Reactjs, Material-UI, Redux <br />
-**Back-end:** Nodejs, Expressjs, JWT <br />
-**Database:** MongoDB<br />
-
-
 
 ## Development Stage
 The shop is completely built.
